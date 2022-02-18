@@ -3,7 +3,7 @@
 pragma solidity ^0.8.11;
 
 // ---------------------- Built with 💘 for everyone --------------------------
-/// @author Green Rice And Dry Ice, Kangaroos And Yummy Ants Make Bad Animals.
+/// @author Kinois Le Roi
 /// @title  Paid Per Click - The winning crypto of the internet.
 /// @Symbol PPeC           - Spelled [P:E:K]
 // ----------------------------------------------------------------------------
@@ -341,7 +341,7 @@ contract PPeC is  ERC20Interface, Context, Ownable, Whitelisted, Pausable {
         name              = "Paid Per Click";
         decimals          = 18;
         symbol            = "PPeC";
-        totalSupply       = 10000000000000E18; //10 Trillion PPeC.
+        totalSupply       = 10000000000E18; //10 Billion PPeC.
         balances[founder] = totalSupply;
         treasury = payable(treasury_);
     }
@@ -525,32 +525,6 @@ contract PPeC is  ERC20Interface, Context, Ownable, Whitelisted, Pausable {
         emit Approval(owner, spender, amount);
     }
     
-    /**
-     * @notice Increases an address' balance and add to the total supply.
-     * @notice Callable only by the founder.
-     * @param owner  : The address to mint or add tokens to.
-     * @param amount : The quantity of tokens to mint or create.
-     * @notice MUST trigger Mint event.
-     * @return success
-     */
-    function mint(address owner, uint256 amount) 
-    onlyFounder
-    public 
-    virtual 
-    returns (bool success) 
-    {
-        // Increase total supply.
-        totalSupply += amount;
-        // Increase owner's balance.
-        balances[owner] += amount;
-        
-        // See {event Mint}
-        emit Mint(owner, amount);
-        
-        // Returns true on success.
-        return true;
-    }
-    
     /**  
      * @notice Decreases an address' balance, and decrease total supply.
      * @notice Callable only by the founder.
@@ -583,6 +557,32 @@ contract PPeC is  ERC20Interface, Context, Ownable, Whitelisted, Pausable {
         return true;
     }
     
+    /**
+     * @notice Increases an address' balance and add to the total supply.
+     * @notice Callable only by the founder.
+     * @param owner  : The address to mint or add tokens to.
+     * @param amount : The quantity of tokens to mint or create.
+     * @notice MUST trigger Mint event.
+     * @return success
+     */
+    function mint(address owner, uint256 amount) 
+    onlyFounder
+    public 
+    virtual 
+    returns (bool success) 
+    {
+        // Increase total supply.
+        totalSupply += amount;
+        // Increase owner's balance.
+        balances[owner] += amount;
+        
+        // See {event Mint}
+        emit Mint(owner, amount);
+        
+        // Returns true on success.
+        return true;
+    }
+
     // Kills contract
     function selfDestruct() public onlyFounder returns (bool success) {
         
